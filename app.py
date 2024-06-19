@@ -7,6 +7,16 @@ import pymysql
 # Sidebar select box
 select_box = st.sidebar.selectbox('Pilih data yang ingin ditampilkan:', ['Adventure Works', 'IMDb Populer Movies'])
 
+# Function to convert Rating to float and handle errors
+def convert_rating(rating_series):
+    try:
+        # Extract numeric part from 'Rating' column
+        return rating_series.str.extract(r'(\d+\.\d+|\d+)').astype(float)
+    except ValueError as e:
+        st.write(f"Error converting 'Rating' column to float: {e}")
+        st.write(rating_series)  # Print the problematic column for inspection
+        return None
+
 # Display IMDb Popular Movies
 if select_box == 'IMDb Populer Movies':
     # Baca file CSV menggunakan pandas
@@ -22,19 +32,13 @@ if select_box == 'IMDb Populer Movies':
     st.subheader('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
     data_top_10 = df1.head(20)
     
-    # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
-    try:
-        # Extract numeric part from 'Rating' column
-        data_top_10['Rating'] = data_top_10['Rating'].str.extract(r'(\d+\.\d+|\d+)').astype(float)
-    except ValueError as e:
-        st.write(f"Error converting 'Rating' column to float: {e}")
-        st.write(data_top_10['Rating'])  # Print the problematic column for inspection
+    # Convert 'Rating' to float
+    data_top_10['Rating'] = convert_rating(data_top_10['Rating'])
 
     # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
     fig, ax = plt.subplots(figsize=(12, 6))
     
-    # Ensure 'Rating' column is numeric before plotting
-    if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
+    if pd.api.types.is_numeric_dtype(data_top_10['Rating']):
         scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
         ax.set_xlabel('Tahun')
         ax.set_ylabel('Judul')
@@ -48,13 +52,11 @@ if select_box == 'IMDb Populer Movies':
     # Visualisasi hubungan rating IMDb teratas dengan rating dibulatkan
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas dengan Rating')
     data_top_20 = df1.head(20)
+    
+    # Convert 'Rating' to float
+    data_top_20['Rating'] = convert_rating(data_top_20['Rating'])
 
-    # Bar plot untuk visualisasi hubungan antara judul film dan rating IMDb
     fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
-
-    # Ambil nilai rating IMDb dan konversi ke tipe float
-    data_top_20['Rating'] = data_top_20['Rating'].str.split().str[0].astype(float)
-
     ax.bar(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
     ax.set_xlabel('Judul Film')
     ax.set_ylabel('Rating IMDb')
