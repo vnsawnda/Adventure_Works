@@ -48,6 +48,20 @@ query2 = """
 # Membaca data dari database menjadi dataframe menggunakan pandas
 df_product = pd.read_sql(query2, conn)
 
+# Query untuk mengambil data warna produk dari tabel dimproduct
+query3 = """
+    SELECT 
+        Color,
+        COUNT(*) AS count
+    FROM 
+        dimproduct
+    GROUP BY 
+        Color
+"""
+
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df_color = pd.read_sql(query3, conn)
+
 # Menutup cursor dan koneksi database
 cursor.close()
 conn.close()
@@ -60,40 +74,25 @@ st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure W
 st.dataframe(df_customer)
 
 # Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
-plt.figure(figsize=(10, 6))
-plt.plot(df_product['ListPrice'], color='blue', label='Harga List')
-plt.plot(df_product['Weight'], color='green', label='Berat')
-plt.xlabel('Indeks Produk')
-plt.ylabel('Nilai')
-plt.title('Hubungan Antara Harga List dan Berat Produk')
-plt.legend()
-plt.grid()
-st.pyplot(plt)
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(df_product['ListPrice'], color='blue', label='Harga List')
+ax.plot(df_product['Weight'], color='green', label='Berat')
+ax.set_xlabel('Indeks Produk')
+ax.set_ylabel('Nilai')
+ax.set_title('Hubungan Antara Harga List dan Berat Produk')
+ax.legend()
+ax.grid()
+st.pyplot(fig)
 
-# Membuat pie chart menggunakan Matplotlib
+# Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
 fig, ax = plt.subplots(figsize=(8, 8))
 ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
 ax.set_title('Komparasi Total Customers Berdasarkan Gender')
 st.pyplot(fig)
 
-# Query untuk mengambil data warna produk dari tabel dimproduct
-query = """
-    SELECT 
-        Color,
-        COUNT(*) AS count
-    FROM 
-        dimproduct
-    GROUP BY 
-        Color
-"""
-
-# Membaca data dari database menjadi dataframe menggunakan pandas
-df = pd.read_sql(query, connection)
-
-# Plotting menggunakan diagram lingkaran untuk memvisualisasikan komposisi warna produk
-plt.figure(figsize=(8, 8))
-plt.pie(df['count'], labels=df['Color'], autopct='%1.1f%%', startangle=140)
-plt.title('Komposisi Warna Produk')
-plt.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
-plt.show()
-
+# Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
+ax.set_title('Komposisi Warna Produk')
+ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+st.pyplot(fig)
