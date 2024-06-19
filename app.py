@@ -50,7 +50,7 @@ if select_box == 'IMDb Populer Movies':
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     data_top_10 = df1.head(20)
 
- # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
+    # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
     fig, ax = plt.subplots(figsize=(10, 10))  # Ukuran gambar bisa disesuaikan
     bars = ax.barh(data_top_10['Judul'], data_top_10['Rating'], color='skyblue')
 
@@ -69,27 +69,27 @@ if select_box == 'IMDb Populer Movies':
 
     st.pyplot(fig)
 
-# Menampilkan komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
-st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis (20 Data Teratas)')
-# Menghitung jumlah film untuk setiap tahun
-film_counts = df1['Tahun'].value_counts().sort_index()
+    # Menampilkan komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
+    st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis (20 Data Teratas)')
+    # Menghitung jumlah film untuk setiap tahun
+    film_counts = df1['Tahun'].value_counts().sort_index()
 
-# Membuat pie chart menggunakan Matplotlib
-fig, ax = plt.subplots(figsize=(8, 8))
-ax.pie(film_counts, labels=film_counts.index, autopct='%1.1f%%', startangle=140)
-ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis')
-ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
-st.pyplot(fig)
+    # Membuat pie chart menggunakan Matplotlib
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.pie(film_counts, labels=film_counts.index, autopct='%1.1f%%', startangle=140)
+    ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis')
+    ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+    st.pyplot(fig)
 
-# Menampilkan distribusi judul film dengan tahun rilis untuk 20 data teratas
-st.subheader('Distribusi Judul Film dengan Tahun Rilis (20 Data Teratas)')
-# Membuat stripplot menggunakan Seaborn untuk visualisasi distribusi
-plt.figure(figsize=(12, 6))
-sns.stripplot(x='Tahun', y='Judul', data=data_top_10, size=10, jitter=True, edgecolor='gray', linewidth=1)
-plt.title('Distribusi Judul Film dengan Tahun Rilis')
-plt.xlabel('Tahun')
-plt.ylabel('Judul Film')
-st.pyplot()
+    # Menampilkan distribusi judul film dengan tahun rilis untuk 20 data teratas
+    st.subheader('Distribusi Judul Film dengan Tahun Rilis (20 Data Teratas)')
+    # Membuat stripplot menggunakan Seaborn untuk visualisasi distribusi
+    plt.figure(figsize=(12, 6))
+    sns.stripplot(x='Tahun', y='Judul', data=data_top_10, size=10, jitter=True, edgecolor='gray', linewidth=1)
+    plt.title('Distribusi Judul Film dengan Tahun Rilis')
+    plt.xlabel('Tahun')
+    plt.ylabel('Judul Film')
+    st.pyplot()
 
 # Display Adventure Works Data
 else:
@@ -198,21 +198,4 @@ else:
     st.subheader("3. Komposisi Warna Produk")
     st.dataframe(df_color)
 
-    # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
-    ax.set_title('Komposisi Warna Produk')
-    ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
-    st.pyplot(fig)
-
-    # Menampilkan data frame df_sales di Streamlit
-    st.subheader("4. Distribusi Jumlah Penjualan")
-    st.dataframe(df_sales)
-
-    # Membuat histogram untuk visualisasi distribusi jumlah penjualan
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
-    ax.set_xlabel('Sales Amount')
-    ax.set_ylabel('Frequency')
-    ax.set_title('Distribusi Jumlah Penjualan')
-    st.pyplot(fig)
+    # Membuat pie chart menggunakan Matplotlib untuk
