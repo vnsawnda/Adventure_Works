@@ -15,8 +15,10 @@ if conn:
     print('Connected to MySQL database')
 
 # Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
-gender_query = "SELECT Gender, CustomerKey FROM dimcustomer"
-customer_query = "SELECT CustomerKey FROM factinternetsales"
+SELECT d.Gender, COUNT(f.CustomerKey) as CustomerCount
+FROM dimcustomer d
+JOIN factinternetsales f ON d.CustomerKey = f.CustomerKey
+GROUP BY d.Gender
 
 # Eksekusi query
 cursor.execute(query)
