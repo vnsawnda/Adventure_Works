@@ -24,7 +24,8 @@ if select_box == 'IMDb Populer Movies':
     
     # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
     try:
-        data_top_10['Rating'] = data_top_10['Rating'].str.replace(',', '').astype(float)
+        # Extract numeric part from 'Rating' column
+        data_top_10['Rating'] = data_top_10['Rating'].str.extract(r'(\d+\.\d+|\d+)').astype(float)
     except ValueError as e:
         st.write(f"Error converting 'Rating' column to float: {e}")
         st.write(data_top_10['Rating'])  # Print the problematic column for inspection
