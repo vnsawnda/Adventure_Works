@@ -69,17 +69,32 @@ if select_box == 'IMDb Populer Movies':
 
     st.pyplot(fig)
 
-    # Menampilkan komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
-    st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis (20 Data Teratas)')
-    # Menghitung jumlah film untuk setiap tahun
-    film_counts = df1['Tahun'].value_counts().sort_index()
+   # Ambil 20 data teratas
+data_top_10 = data.head(20)
 
-    # Membuat pie chart menggunakan Matplotlib
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(film_counts, labels=film_counts.index, autopct='%1.1f%%', startangle=140)
-    ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis')
-    ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
-    st.pyplot(fig)
+# Pastikan kolom 'Year' adalah tipe data integer
+data_top_10['Tahun'] = data_top_10['Tahun'].astype(int)
+
+# Hitung jumlah film untuk setiap rentang tahun
+year_bins = pd.cut(data_top_10['Tahun'], bins=[1990, 2000, 2010, 2020, 2030], right=False)
+year_counts = year_bins.value_counts().sort_index()
+
+# Visualisasi komposisi menggunakan line chart
+plt.figure(figsize=(10, 6))
+
+# Buat line chart
+plt.plot(year_counts.index.astype(str), year_counts.values, marker='o', linestyle='-', color='b')
+
+# Tambahkan judul dan label sumbu
+plt.title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
+plt.xlabel('Rentang Tahun Rilis')
+plt.ylabel('Jumlah Film')
+
+# Tampilkan grid
+plt.grid(True)
+
+# Tampilkan plot
+plt.show()
 
     # Menampilkan distribusi judul film dengan tahun rilis untuk 20 data teratas
     st.subheader('Distribusi Judul Film dengan Tahun Rilis (20 Data Teratas)')
