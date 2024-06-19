@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import pymysql
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -31,14 +30,24 @@ if select_box == 'IMDb Populer Movies':
 
     # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
     fig, ax = plt.subplots(figsize=(12, 6))
-    scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
-    ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
-    ax.set_xlabel('Tahun')
-    ax.set_ylabel('Judul')
-    cbar = fig.colorbar(scatter)
-    cbar.set_label('Rating')
-    ax.set_xticks([2015, 2023, 2024])
-    st.pyplot(fig)
+    
+    # Ensure 'Rating' column is numeric before plotting
+    if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
+        scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
+        ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
+        ax.set_xlabel('Tahun')
+        ax.set_ylabel('Judul')
+        cbar = fig.colorbar(scatter)
+        cbar.set_label('Rating')
+        ax.set_xticks([2015, 2023, 2024])
+        st.pyplot(fig)
+    else:
+        st.write("Error: 'Rating' column could not be converted to numeric.")
+
+# Display Adventure Works Data
+else:
+    # Implement your Adventure Works visualization code here as per your previous implementation
+    st.write("Placeholder for Adventure Works visualization")
 
 # Display Adventure Works Data
 else:
