@@ -30,17 +30,22 @@ if select_box == 'IMDb Populer Movies':
         st.write(f"Error converting 'Rating' column to float: {e}")
         st.write(data_top_10['Rating'])  # Print the problematic column for inspection
 
-    # Plot scatter plot untuk menampilkan hubungan antara judul film dan rating IMDb
-    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
-    ax.scatter(data_top_10['Judul'], data_top_10['Rating'], s=100, alpha=0.7, color='blue', edgecolors='w')
-    ax.set_xlabel('Judul Film')
-    ax.set_ylabel('Rating IMDb')
-    ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-    ax.tick_params(axis='x', rotation=90)  # Rotasi label sumbu x untuk memudahkan pembacaan
+    # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
+    fig, ax = plt.subplots(figsize=(10, 10))  # Ukuran gambar bisa disesuaikan
+    bars = ax.barh(data_top_10['Judul'], data_top_10['Rating'], color='skyblue')
 
-    # Menambahkan nilai rating pada masing-masing titik
-    for i, txt in enumerate(data_top_10['Rating']):
-        ax.annotate(txt, (data_top_10['Judul'].iloc[i], data_top_10['Rating'].iloc[i]), fontsize=8, ha='center', va='bottom')
+    ax.set_xlabel('Rating IMDb')
+    ax.set_ylabel('Judul Film')
+    ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+
+    # Menambahkan nilai rating pada masing-masing batang
+    for bar in bars:
+        width = bar.get_width()
+        ax.annotate(f'{width:.2f}', 
+                    xy=(width, bar.get_y() + bar.get_height() / 2),
+                    xytext=(3, 0),
+                    textcoords="offset points",
+                    ha='left', va='center', fontsize=8)
 
     st.pyplot(fig)
 
