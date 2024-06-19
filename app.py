@@ -96,3 +96,27 @@ ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangl
 ax.set_title('Komposisi Warna Produk')
 ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
 st.pyplot(fig)
+
+# Query untuk mengambil data total penjualan
+query = """
+    SELECT SalesAmount
+    FROM factinternetsales
+"""
+
+# Membaca data dari database
+df = pd.read_sql(query, connection)
+
+# Mengatur matplotlib inline untuk menampilkan plot di notebook
+%matplotlib inline
+
+# Mengatur ukuran plot
+plt.figure(figsize=(10, 6))
+
+# Membuat histogram untuk visualisasi distribusi sebagai bar chart
+sns.histplot(df['SalesAmount'], kde=False, color='skyblue', bins=30)
+
+# Menambahkan label dan judul
+plt.xlabel('Sales Amount')
+plt.ylabel('Frequency')
+plt.title('Distribusi Jumlah Penjualan')
+plt.show()
