@@ -47,7 +47,7 @@ if select_box == 'IMDb Populer Movies':
         st.write("Error: 'Rating' column could not be converted to numeric.")
 
     # Visualisasi hubungan rating IMDb teratas dengan rating dibulatkan
-    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas dengan Rating Dibulatkan')
+    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas dengan Rating')
     data_top_20 = df1.head(20)
 
     # Bulatkan rating ke 0, 2, 4, 6, 8 terdekat
