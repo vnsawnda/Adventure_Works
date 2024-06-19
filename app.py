@@ -45,9 +45,17 @@ if select_box == 'IMDb Populer Movies':
     else:
         st.write("Error: 'Rating' column could not be converted to numeric.")
         
-    # Visualisasi hubungan rating IMDb teratas
+# Visualisasi hubungan rating IMDb teratas
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     data_top_20 = df1.head(20)
+
+    # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
+    try:
+        # Extract numeric part from 'Rating' column
+        data_top_20['Rating'] = data_top_20['Rating'].str.extract(r'(\d+\.\d+|\d+)').astype(float)
+    except ValueError as e:
+        st.write(f"Error converting 'Rating' column to float: {e}")
+        st.write(data_top_20['Rating'])  # Print the problematic column for inspection
 
     # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
     fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
@@ -60,12 +68,12 @@ if select_box == 'IMDb Populer Movies':
         ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
         ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
 
-        # Menambahkan nilai rating pada masing-masing batang
+        # Menambahkan nilai rating pada masing-masing batang dengan penyesuaian posisi
         for bar in bars:
             width = bar.get_width()
             ax.annotate(f'{width:.2f}', 
                         xy=(width, bar.get_y() + bar.get_height() / 2),
-                        xytext=(3, 0),
+                        xytext=(5, 0),  # Menambah jarak horizontal antara teks dan batang
                         textcoords="offset points",
                         ha='left', va='center', fontsize=8)
 
