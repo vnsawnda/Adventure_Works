@@ -57,6 +57,7 @@ if select_box == 'IMDb Populer Movies':
 
         ax.set_xlabel('Rating IMDb')
         ax.set_ylabel('Judul Film')
+        ax.set_xticks([0, 2, 4, 6, 8])  # Hanya menampilkan angka 0, 2, 4, 6, 8
         ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
 
         # Menambahkan nilai rating pada masing-masing batang
