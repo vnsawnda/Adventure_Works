@@ -30,6 +30,10 @@ if select_box == 'IMDb Populer Movies':
         st.write(f"Error converting 'Rating' column to float: {e}")
         st.write(data_top_10['Rating'])  # Print the problematic column for inspection
 
+    # Visualisasi hubungan rating IMDb teratas
+    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+    data_top_10 = df1.head(20)
+
     # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
     fig, ax = plt.subplots(figsize=(10, 10))  # Ukuran gambar bisa disesuaikan
     bars = ax.barh(data_top_10['Judul'], data_top_10['Rating'], color='skyblue')
