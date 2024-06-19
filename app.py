@@ -41,7 +41,7 @@ conn.close()
 df_customer = pd.DataFrame(data, columns=['Gender', 'TotalCustomers'])
 
 # Menampilkan judul di halaman web
-st.title("Dashboard Adventure Works")
+st.title("Final Project Data Visualisasi")
 st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
 # Menampilkan data frame di Streamlit
