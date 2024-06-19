@@ -84,6 +84,15 @@ if select_box == 'IMDb Populer Movies':
     ax.grid(True)
     st.pyplot(fig)
 
+ # Visualisasi distribusi judul film dengan tahun film menggunakan bar plot
+    st.subheader('Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.countplot(data=data_top_20, x='Tahun', palette='viridis')
+    ax.set_title('Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
+    ax.set_xlabel('Tahun Rilis')
+    ax.set_ylabel('Jumlah Judul Film')
+    st.pyplot(fig)
+
 # Display Adventure Works Data
 else:
     # Membuat koneksi ke database MySQL
