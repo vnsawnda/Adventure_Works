@@ -79,7 +79,6 @@ if select_box == 'IMDb Populer Movies':
     # Visualisasi komposisi menggunakan line chart
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(year_counts.index.astype(str), year_counts.values, marker='o', linestyle='-', color='b')
-    ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
     ax.set_xlabel('Rentang Tahun Rilis')
     ax.set_ylabel('Jumlah Film')
     ax.grid(True)
