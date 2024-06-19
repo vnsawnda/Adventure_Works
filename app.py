@@ -50,7 +50,7 @@ if select_box == 'IMDb Populer Movies':
         st.write("Error: 'Rating' column could not be converted to numeric.")
 
     # Visualisasi hubungan rating IMDb teratas dengan rating dibulatkan
-    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas dengan Rating')
+    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     data_top_20 = df1.head(20)
     
     # Convert 'Rating' to float
@@ -60,7 +60,6 @@ if select_box == 'IMDb Populer Movies':
     ax.bar(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
     ax.set_xlabel('Judul Film')
     ax.set_ylabel('Rating IMDb')
-    ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     ax.set_xticklabels(data_top_20['Judul'], rotation=90)
 
     st.pyplot(fig)
