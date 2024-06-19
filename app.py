@@ -19,7 +19,7 @@ if select_box == 'IMDb Populer Movies':
     st.dataframe(df1)
 
     # Visualisasi komparasi rating IMDb teratas
-    st.subheader('Komparasi Rating IMDb untuk Data Teratas')
+    st.subheader('Komparasi Rating IMDb untuk 20 Data Teratas')
     data_top_10 = df1.head(20)
     
     # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
@@ -36,7 +36,6 @@ if select_box == 'IMDb Populer Movies':
     # Ensure 'Rating' column is numeric before plotting
     if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
         scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
-        ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
         ax.set_xlabel('Tahun')
         ax.set_ylabel('Judul')
         cbar = fig.colorbar(scatter)
