@@ -65,6 +65,26 @@ if select_box == 'IMDb Populer Movies':
 
     st.pyplot(fig)
 
+    # Visualisasi komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
+    st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
+    data_top_20 = df1.head(20)
+    
+    # Pastikan kolom 'Tahun' adalah tipe data integer
+    data_top_20['Tahun'] = data_top_20['Tahun'].astype(int)
+
+    # Hitung jumlah film untuk setiap rentang tahun
+    year_bins = pd.cut(data_top_20['Tahun'], bins=[1990, 2000, 2010, 2020, 2030], right=False)
+    year_counts = year_bins.value_counts().sort_index()
+
+    # Visualisasi komposisi menggunakan line chart
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(year_counts.index.astype(str), year_counts.values, marker='o', linestyle='-', color='b')
+    ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
+    ax.set_xlabel('Rentang Tahun Rilis')
+    ax.set_ylabel('Jumlah Film')
+    ax.grid(True)
+    st.pyplot(fig)
+
 # Display Adventure Works Data
 else:
     # Membuat koneksi ke database MySQL
