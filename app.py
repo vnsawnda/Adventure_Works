@@ -30,23 +30,7 @@ if select_box == 'IMDb Populer Movies':
         st.write(f"Error converting 'Rating' column to float: {e}")
         st.write(data_top_10['Rating'])  # Print the problematic column for inspection
 
-    # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
-    fig, ax = plt.subplots(figsize=(12, 6))
-    
-    # Ensure 'Rating' column is numeric before plotting
-    if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
-        scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
-        ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
-        ax.set_xlabel('Tahun')
-        ax.set_ylabel('Judul')
-        cbar = fig.colorbar(scatter)
-        cbar.set_label('Rating')
-        ax.set_xticks([2015, 2023, 2024])
-        st.pyplot(fig)
-    else:
-        st.write("Error: 'Rating' column could not be converted to numeric.")
-
-    # Visualisasi hubungan rating IMDb teratas
+     # Visualisasi komparasi rating IMDb teratas
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     data_top_10 = df1.head(20)
 
@@ -68,43 +52,6 @@ if select_box == 'IMDb Populer Movies':
                     ha='left', va='center', fontsize=8)
 
     st.pyplot(fig)
-
-   # Ambil 20 data teratas
-data_top_10 = data.head(20)
-
-# Pastikan kolom 'Year' adalah tipe data integer
-data_top_10['Tahun'] = data_top_10['Tahun'].astype(int)
-
-# Hitung jumlah film untuk setiap rentang tahun
-year_bins = pd.cut(data_top_10['Tahun'], bins=[1990, 2000, 2010, 2020, 2030], right=False)
-year_counts = year_bins.value_counts().sort_index()
-
-# Visualisasi komposisi menggunakan line chart
-plt.figure(figsize=(10, 6))
-
-# Buat line chart
-plt.plot(year_counts.index.astype(str), year_counts.values, marker='o', linestyle='-', color='b')
-
-# Tambahkan judul dan label sumbu
-plt.title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
-plt.xlabel('Rentang Tahun Rilis')
-plt.ylabel('Jumlah Film')
-
-# Tampilkan grid
-plt.grid(True)
-
-# Tampilkan plot
-plt.show()
-
-    # Menampilkan distribusi judul film dengan tahun rilis untuk 20 data teratas
-    st.subheader('Distribusi Judul Film dengan Tahun Rilis (20 Data Teratas)')
-    # Membuat stripplot menggunakan Seaborn untuk visualisasi distribusi
-    plt.figure(figsize=(12, 6))
-    sns.stripplot(x='Tahun', y='Judul', data=data_top_10, size=10, jitter=True, edgecolor='gray', linewidth=1)
-    plt.title('Distribusi Judul Film dengan Tahun Rilis')
-    plt.xlabel('Tahun')
-    plt.ylabel('Judul Film')
-    st.pyplot()
 
 # Display Adventure Works Data
 else:
@@ -213,4 +160,21 @@ else:
     st.subheader("3. Komposisi Warna Produk")
     st.dataframe(df_color)
 
-    # Membuat pie chart menggunakan Matplotlib untuk
+    # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
+    ax.set_title('Komposisi Warna Produk')
+    ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+    st.pyplot(fig)
+
+    # Menampilkan data frame df_sales di Streamlit
+    st.subheader("4. Distribusi Jumlah Penjualan")
+    st.dataframe(df_sales)
+
+    # Membuat histogram untuk visualisasi distribusi jumlah penjualan
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
+    ax.set_xlabel('Sales Amount')
+    ax.set_ylabel('Frequency')
+    ax.set_title('Distribusi Jumlah Penjualan')
+    st.pyplot(fig)
