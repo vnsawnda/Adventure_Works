@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pymysql
-import numpy as np
 
 # Sidebar select box
 select_box = st.sidebar.selectbox('Pilih data yang ingin ditampilkan:', ['Adventure Works', 'IMDb Populer Movies'])
@@ -50,39 +49,19 @@ if select_box == 'IMDb Populer Movies':
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas dengan Rating')
     data_top_20 = df1.head(20)
 
-    # Bulatkan rating ke 0, 2, 4, 6, 8 terdekat
-    def round_rating(rating):
-        return np.round(rating / 2) * 2
+    # Bar plot untuk visualisasi hubungan antara judul film dan rating IMDb
+    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
 
-    # Pastikan 'Rating' ada dan numerik sebelum melanjutkan
-    if 'Rating' in data_top_20.columns and pd.api.types.is_numeric_dtype(data_top_20['Rating']):
-        data_top_20['Rating Dibulatkan'] = data_top_20['Rating'].apply(round_rating)
+    # Ambil nilai rating IMDb dan konversi ke tipe float
+    data_top_20['Rating'] = data_top_20['Rating'].str.split().str[0].astype(float)
 
-        # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb yang dibulatkan
-        fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
+    ax.bar(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
+    ax.set_xlabel('Judul Film')
+    ax.set_ylabel('Rating IMDb')
+    ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+    ax.set_xticklabels(data_top_20['Judul'], rotation=90)
 
-        if 'Rating Dibulatkan' in data_top_20.columns and 'Judul' in data_top_20.columns:
-            bars = ax.barh(data_top_20['Judul'], data_top_20['Rating Dibulatkan'], color='skyblue')
-
-            ax.set_xlabel('Rating Film')
-            ax.set_ylabel('Judul Film')
-            ax.set_xticks([0, 2, 4, 6, 8])  # Hanya menampilkan angka 0, 2, 4, 6, 8
-            ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
-
-            # Menambahkan nilai rating pada masing-masing batang
-            for bar in bars:
-                width = bar.get_width()
-                ax.annotate(f'{width:.0f}', 
-                            xy=(width, bar.get_y() + bar.get_height() / 2),
-                            xytext=(3, 0),
-                            textcoords="offset points",
-                            ha='left', va='center', fontsize=8)
-
-            st.pyplot(fig)
-        else:
-            st.write("Kolom 'Rating Dibulatkan' atau 'Judul' tidak ditemukan dalam data.")
-    else:
-        st.write("Kolom 'Rating' tidak ditemukan atau tidak numerik dalam data.")
+    st.pyplot(fig)
 
 # Display Adventure Works Data
 else:
@@ -207,4 +186,5 @@ else:
     sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
     ax.set_xlabel('Sales Amount')
     ax.set_ylabel('Frequency')
-    ax.set_title
+    ax.set_title('Distribusi Jumlah Penjualan')
+    st.pyplot(fig)
