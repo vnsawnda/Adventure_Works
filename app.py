@@ -81,7 +81,7 @@ st.title("Final Project Data Visualisasi")
 st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
 # Menampilkan data frame df_customer di Streamlit
-st.subheader("Total Customers Berdasarkan Gender")
+st.subheader("1. Total Customers Berdasarkan Gender")
 st.dataframe(df_customer)
 
 # Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
@@ -91,7 +91,7 @@ ax.set_title('Komparasi Total Customers Berdasarkan Gender')
 st.pyplot(fig)
 
 # Menampilkan data frame df_product di Streamlit
-st.subheader("Harga List dan Berat Produk")
+st.subheader("2. Harga List dan Berat Produk")
 st.dataframe(df_product)
 
 # Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
@@ -106,7 +106,7 @@ ax.grid()
 st.pyplot(fig)
 
 # Menampilkan data frame df_color di Streamlit
-st.subheader("Komposisi Warna Produk")
+st.subheader("3. Komposisi Warna Produk")
 st.dataframe(df_color)
 
 # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
@@ -117,7 +117,7 @@ ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
 st.pyplot(fig)
 
 # Menampilkan data frame df_sales di Streamlit
-st.subheader("Distribusi Jumlah Penjualan")
+st.subheader("4. Distribusi Jumlah Penjualan")
 st.dataframe(df_sales)
 
 # Membuat histogram untuk visualisasi distribusi jumlah penjualan
