@@ -20,55 +20,39 @@ if select_box == 'IMDb Populer Movies':
 
     # Visualisasi komparasi rating IMDb teratas
     st.subheader('Komparasi Rating IMDb untuk Data Teratas')
-    data_top_10 = df1.head(20)
+    data_top_20 = df1.head(20)
     
     # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
     try:
         # Extract numeric part from 'Rating' column
-        data_top_10['Rating'] = data_top_10['Rating'].str.extract(r'(\d+\.\d+|\d+)').astype(float)
+        data_top_20['Rating'] = data_top_20['Rating'].str.extract(r'(\d+\.\d+|\d+)').astype(float)
     except ValueError as e:
         st.write(f"Error converting 'Rating' column to float: {e}")
-        st.write(data_top_10['Rating'])  # Print the problematic column for inspection
+        st.write(data_top_20['Rating'])  # Print the problematic column for inspection
 
-    # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
-    fig, ax = plt.subplots(figsize=(12, 6))
-    
-    # Ensure 'Rating' column is numeric before plotting
-    if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
-        scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
-        ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
-        ax.set_xlabel('Tahun')
-        ax.set_ylabel('Judul')
-        cbar = fig.colorbar(scatter)
-        cbar.set_label('Rating')
-        ax.set_xticks([2015, 2023, 2024])
+    # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
+    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
+
+    if 'Rating' in data_top_20.columns and 'Judul' in data_top_20.columns:
+        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
+
+        ax.set_xlabel('Rating IMDb')
+        ax.set_ylabel('Judul Film')
+        ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+        ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
+
+        # Menambahkan nilai rating pada masing-masing batang
+        for bar in bars:
+            width = bar.get_width()
+            ax.annotate(f'{width:.2f}', 
+                        xy=(width, bar.get_y() + bar.get_height() / 2),
+                        xytext=(3, 0),
+                        textcoords="offset points",
+                        ha='left', va='center', fontsize=8)
+
         st.pyplot(fig)
     else:
-        st.write("Error: 'Rating' column could not be converted to numeric.")
-
-    # Visualisasi hubungan rating IMDb teratas
-    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-    data_top_10 = df1.head(20)
-
- # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
-    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
-    bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
-
-    ax.set_xlabel('Rating IMDb')
-    ax.set_ylabel('Judul Film')
-    ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-    ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
-
-    # Menambahkan nilai rating pada masing-masing batang
-    for bar in bars:
-        width = bar.get_width()
-        ax.annotate(f'{width:.2f}', 
-                    xy=(width, bar.get_y() + bar.get_height() / 2),
-                    xytext=(3, 0),
-                    textcoords="offset points",
-                    ha='left', va='center', fontsize=8)
-
-    st.pyplot(fig)
+        st.write("Kolom 'Rating' atau 'Judul' tidak ditemukan dalam data.")
 
 # Display Adventure Works Data
 else:
@@ -194,12 +178,4 @@ else:
     ax.set_xlabel('Sales Amount')
     ax.set_ylabel('Frequency')
     ax.set_title('Distribusi Jumlah Penjualan')
-    st.pyplot(fig)
-
-    # Additional Chart: Boxplot Harga List Produk
-    st.subheader("5. Distribusi Harga List Produk")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x='ListPrice', data=df_product, ax=ax)
-    ax.set_xlabel('Harga List')
-    ax.set_title('Distribusi Harga List Produk')
     st.pyplot(fig)
