@@ -75,3 +75,25 @@ fig, ax = plt.subplots(figsize=(8, 8))
 ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
 ax.set_title('Komparasi Total Customers Berdasarkan Gender')
 st.pyplot(fig)
+
+# Query untuk mengambil data warna produk dari tabel dimproduct
+query = """
+    SELECT 
+        Color,
+        COUNT(*) AS count
+    FROM 
+        dimproduct
+    GROUP BY 
+        Color
+"""
+
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df = pd.read_sql(query, connection)
+
+# Plotting menggunakan diagram lingkaran untuk memvisualisasikan komposisi warna produk
+plt.figure(figsize=(8, 8))
+plt.pie(df['count'], labels=df['Color'], autopct='%1.1f%%', startangle=140)
+plt.title('Komposisi Warna Produk')
+plt.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+plt.show()
+
