@@ -44,34 +44,6 @@ if select_box == 'IMDb Populer Movies':
         st.pyplot(fig)
     else:
         st.write("Error: 'Rating' column could not be converted to numeric.")
-        
-    # Visualisasi hubungan rating IMDb teratas
-    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-    data_top_20 = df1.head(20)
-
-    # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
-    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
-
-    if 'Rating' in data_top_20.columns and 'Judul' in data_top_20.columns:
-        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
-
-        ax.set_xlabel('Rating IMDb')
-        ax.set_ylabel('Judul Film')
-        ax.set_xticks([0, 2, 4, 6, 8])  # Hanya menampilkan angka 0, 2, 4, 6, 8
-        ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
-
-        # Menambahkan nilai rating pada masing-masing batang
-        for bar in bars:
-            width = bar.get_width()
-            ax.annotate(f'{width:.2f}', 
-                        xy=(width, bar.get_y() + bar.get_height() / 2),
-                        xytext=(3, 0),
-                        textcoords="offset points",
-                        ha='left', va='center', fontsize=8)
-
-        st.pyplot(fig)
-    else:
-        st.write("Kolom 'Rating' atau 'Judul' tidak ditemukan dalam data.")
 
 # Display Adventure Works Data
 else:
