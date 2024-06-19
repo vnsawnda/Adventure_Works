@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pymysql
 
 # Sidebar select box
 select_box = st.sidebar.selectbox('Pilih data yang ingin ditampilkan:', ['Adventure Works', 'IMDb Populer Movies'])
@@ -43,11 +44,6 @@ if select_box == 'IMDb Populer Movies':
         st.pyplot(fig)
     else:
         st.write("Error: 'Rating' column could not be converted to numeric.")
-
-# Display Adventure Works Data
-else:
-    # Implement your Adventure Works visualization code here as per your previous implementation
-    st.write("Placeholder for Adventure Works visualization")
 
 # Display Adventure Works Data
 else:
