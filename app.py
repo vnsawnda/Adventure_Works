@@ -21,7 +21,13 @@ if select_box == 'IMDb Populer Movies':
     # Visualisasi komparasi rating IMDb teratas
     st.subheader('Komparasi Rating IMDb untuk Data Teratas')
     data_top_10 = df1.head(20)
-    data_top_10['Rating'] = data_top_10['Rating'].str.split().str[0].str.replace(',', '').astype(float)
+    
+    # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
+    try:
+        data_top_10['Rating'] = data_top_10['Rating'].str.replace(',', '').astype(float)
+    except ValueError as e:
+        st.write(f"Error converting 'Rating' column to float: {e}")
+        st.write(data_top_10['Rating'])  # Print the problematic column for inspection
 
     # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
     fig, ax = plt.subplots(figsize=(12, 6))
