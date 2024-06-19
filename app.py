@@ -69,6 +69,28 @@ if select_box == 'IMDb Populer Movies':
 
     st.pyplot(fig)
 
+# Menampilkan komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
+st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis (20 Data Teratas)')
+# Menghitung jumlah film untuk setiap tahun
+film_counts = df1['Tahun'].value_counts().sort_index()
+
+# Membuat pie chart menggunakan Matplotlib
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.pie(film_counts, labels=film_counts.index, autopct='%1.1f%%', startangle=140)
+ax.set_title('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis')
+ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+st.pyplot(fig)
+
+# Menampilkan distribusi judul film dengan tahun rilis untuk 20 data teratas
+st.subheader('Distribusi Judul Film dengan Tahun Rilis (20 Data Teratas)')
+# Membuat stripplot menggunakan Seaborn untuk visualisasi distribusi
+plt.figure(figsize=(12, 6))
+sns.stripplot(x='Tahun', y='Judul', data=data_top_10, size=10, jitter=True, edgecolor='gray', linewidth=1)
+plt.title('Distribusi Judul Film dengan Tahun Rilis')
+plt.xlabel('Tahun')
+plt.ylabel('Judul Film')
+st.pyplot()
+
 # Display Adventure Works Data
 else:
     # Membuat koneksi ke database MySQL
