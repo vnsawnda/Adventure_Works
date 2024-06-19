@@ -19,7 +19,7 @@ if select_box == 'IMDb Populer Movies':
     st.dataframe(df1)
 
     # Visualisasi komparasi rating IMDb teratas
-    st.subheader('Komparasi Rating IMDb untuk 20 Data Teratas')
+    st.subheader('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
     data_top_10 = df1.head(20)
     
     # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
@@ -47,13 +47,13 @@ if select_box == 'IMDb Populer Movies':
         
     # Visualisasi hubungan rating IMDb teratas
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-    data_top_20 = df1.head(20)
+    data_top_10 = df1.head(20)
 
     # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
-    fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
+    fig, ax = plt.subplots(figsize=(10, 6))  # Ukuran gambar bisa disesuaikan
 
-    if 'Rating' in data_top_20.columns and 'Judul' in data_top_20.columns:
-        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
+    if 'Rating' in data_top_10.columns and 'Judul' in data_top_10.columns:
+        bars = ax.barh(data_top_10['Judul'], data_top_10['Rating'], color='skyblue')
 
         ax.set_xlabel('Rating IMDb')
         ax.set_ylabel('Judul Film')
