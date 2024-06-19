@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import pymysql
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Membuat koneksi ke database MySQL
 conn = pymysql.connect(
@@ -62,6 +63,15 @@ query3 = """
 # Membaca data dari database menjadi dataframe menggunakan pandas
 df_color = pd.read_sql(query3, conn)
 
+# Query untuk mengambil data total penjualan dari tabel factinternetsales
+query4 = """
+    SELECT SalesAmount
+    FROM factinternetsales
+"""
+
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df_sales = pd.read_sql(query4, conn)
+
 # Menutup cursor dan koneksi database
 cursor.close()
 conn.close()
@@ -97,26 +107,10 @@ ax.set_title('Komposisi Warna Produk')
 ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
 st.pyplot(fig)
 
-# Query untuk mengambil data total penjualan
-query = """
-    SELECT SalesAmount
-    FROM factinternetsales
-"""
-
-# Membaca data dari database
-df = pd.read_sql(query, connection)
-
-# Mengatur matplotlib inline untuk menampilkan plot di notebook
-%matplotlib inline
-
-# Mengatur ukuran plot
-plt.figure(figsize=(10, 6))
-
-# Membuat histogram untuk visualisasi distribusi sebagai bar chart
-sns.histplot(df['SalesAmount'], kde=False, color='skyblue', bins=30)
-
-# Menambahkan label dan judul
-plt.xlabel('Sales Amount')
-plt.ylabel('Frequency')
-plt.title('Distribusi Jumlah Penjualan')
-plt.show()
+# Membuat histogram untuk visualisasi distribusi jumlah penjualan
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
+ax.set_xlabel('Sales Amount')
+ax.set_ylabel('Frequency')
+ax.set_title('Distribusi Jumlah Penjualan')
+st.pyplot(fig)
