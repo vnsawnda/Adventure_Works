@@ -1,1 +1,5 @@
-
+pandas
+streamlit
+mysql-connector-python
+matplotlib
+pymsql 
