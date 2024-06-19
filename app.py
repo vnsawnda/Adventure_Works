@@ -19,7 +19,7 @@ if select_box == 'IMDb Populer Movies':
     st.dataframe(df1)
 
     # Visualisasi komparasi rating IMDb teratas
-    st.subheader('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
+    st.subheader('Komparasi Rating IMDb untuk 20 Data Teratas')
     data_top_10 = df1.head(20)
     
     # Coba ubah 'Rating' menjadi float, dengan penanganan khusus karakter non-numeric
@@ -51,17 +51,26 @@ if select_box == 'IMDb Populer Movies':
 
     # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb
     fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
-ax.scatter(data_top_10['Judul'], data_top_10['Rating'], s=100, alpha=0.7, color='blue', edgecolors='w')
-ax.set_xlabel('Judul Film')
-ax.set_ylabel('Rating IMDb')
-ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
-ax.tick_params(axis='x', rotation=90)  # Rotasi label sumbu x untuk memudahkan pembacaan
 
-# Menambahkan nilai rating pada masing-masing titik
-for i, txt in enumerate(data_top_10['Rating']):
-    ax.annotate(txt, (data_top_10['Judul'].iloc[i], data_top_10['Rating'].iloc[i]), fontsize=8, ha='center', va='bottom')
+    if 'Rating' in data_top_20.columns and 'Judul' in data_top_20.columns:
+        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
 
-st.pyplot(fig)
+        ax.set_xlabel('Rating IMDb')
+        ax.set_ylabel('Judul Film')
+        ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
+
+        # Menambahkan nilai rating pada masing-masing batang
+        for bar in bars:
+            width = bar.get_width()
+            ax.annotate(f'{width:.2f}', 
+                        xy=(width, bar.get_y() + bar.get_height() / 2),
+                        xytext=(3, 0),
+                        textcoords="offset points",
+                        ha='left', va='center', fontsize=8)
+
+        st.pyplot(fig)
+    else:
+        st.write("Kolom 'Rating' atau 'Judul' tidak ditemukan dalam data.")
 
 # Display Adventure Works Data
 else:
