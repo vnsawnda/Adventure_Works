@@ -80,8 +80,19 @@ conn.close()
 st.title("Final Project Data Visualisasi")
 st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
-# Menampilkan data frame di Streamlit
+# Menampilkan data frame df_customer di Streamlit
+st.subheader("Total Customers Berdasarkan Gender")
 st.dataframe(df_customer)
+
+# Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
+ax.set_title('Komparasi Total Customers Berdasarkan Gender')
+st.pyplot(fig)
+
+# Menampilkan data frame df_product di Streamlit
+st.subheader("Harga List dan Berat Produk")
+st.dataframe(df_product)
 
 # Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -94,11 +105,9 @@ ax.legend()
 ax.grid()
 st.pyplot(fig)
 
-# Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
-fig, ax = plt.subplots(figsize=(8, 8))
-ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
-ax.set_title('Komparasi Total Customers Berdasarkan Gender')
-st.pyplot(fig)
+# Menampilkan data frame df_color di Streamlit
+st.subheader("Komposisi Warna Produk")
+st.dataframe(df_color)
 
 # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -106,6 +115,10 @@ ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangl
 ax.set_title('Komposisi Warna Produk')
 ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
 st.pyplot(fig)
+
+# Menampilkan data frame df_sales di Streamlit
+st.subheader("Distribusi Jumlah Penjualan")
+st.dataframe(df_sales)
 
 # Membuat histogram untuk visualisasi distribusi jumlah penjualan
 fig, ax = plt.subplots(figsize=(10, 6))
