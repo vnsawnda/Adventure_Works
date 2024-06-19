@@ -1,3 +1,7 @@
+import mysql.connector
+import pandas as pd
+import matplotlib.pyplot as plt
+
 # Membuat koneksi ke database MySQL
 conn = pymysql.connect(
     host="kubela.id",
