@@ -47,6 +47,32 @@ st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure W
 # Menampilkan data frame di Streamlit
 st.dataframe(df_customer)
 
+# Query untuk mengambil data harga list (ListPrice) dan berat (Weight) dari tabel dimproduct
+query = """
+    SELECT 
+        ListPrice,
+        Weight
+    FROM 
+        dimproduct
+"""
+
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df = pd.read_sql(query, connection)
+
+# Plotting menggunakan line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
+plt.figure(figsize=(10, 6))
+plt.plot(df['ListPrice'], color='blue', label='Harga List')
+plt.plot(df['Weight'], color='green', label='Berat')
+plt.xlabel('Indeks Produk')
+plt.ylabel('Nilai')
+plt.title('Hubungan Antara Harga List dan Berat Produk')
+plt.legend()
+plt.grid()
+
+# Menampilkan plot
+plt.tight_layout()
+plt.show()
+
 # Membuat pie chart menggunakan Matplotlib
 fig, ax = plt.subplots(figsize=(8, 8))
 ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
