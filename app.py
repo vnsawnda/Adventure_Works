@@ -30,6 +30,29 @@ if select_box == 'IMDb Populer Movies':
         st.write(f"Error converting 'Rating' column to float: {e}")
         st.write(data_top_10['Rating'])  # Print the problematic column for inspection
 
+    # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
+    fig, ax = plt.subplots(figsize=(12, 8))  # Ubah ukuran gambar jika diperlukan
+    
+    # Pastikan 'Rating' sudah dalam format numerik sebelum plotting
+    if 'Rating' in data_top_10.columns and pd.api.types.is_numeric_dtype(data_top_10['Rating']):
+        scatter = ax.scatter(data_top_10['Judul'], data_top_10['Rating'], cmap='coolwarm', s=100, alpha=0.7)
+        ax.set_title('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+        ax.set_xlabel('Judul Film')
+        ax.set_ylabel('Rating IMDb')
+        ax.set_xticks([])  # Menghilangkan label sumbu x untuk memastikan semua judul tampil
+        
+        # Menambahkan nilai rating pada masing-masing titik
+        for i, txt in enumerate(data_top_10['Rating']):
+            ax.annotate(txt, (data_top_10['Judul'].iloc[i], data_top_10['Rating'].iloc[i]), fontsize=8, ha='center', va='bottom')
+        
+        # Menambahkan colorbar sebagai referensi
+        cbar = fig.colorbar(scatter)
+        cbar.set_label('Rating IMDb')
+
+        st.pyplot(fig)
+    else:
+        st.write("Error: 'Rating' column could not be converted to numeric.")
+
     # Visualisasi hubungan rating IMDb teratas
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     data_top_10 = df1.head(20)
