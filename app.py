@@ -24,7 +24,8 @@ if select_box == 'IMDb Populer Movies':
     df1 = pd.read_csv(fn1, encoding='latin1')
 
     # Tampilkan judul aplikasi
-    st.title("Scrapping Website IMDb")
+    st.title("Final Project Data Visualisasi")
+    st.markdown("<h1 style='text-align; color: black;'>Scrapping Website IMDb</h1>", unsafe_allow_html=True)
     # Menampilkan DataFrame sebagai tabel
     st.dataframe(df1)
 
@@ -140,7 +141,7 @@ else:
 
     # Menampilkan judul di halaman web
     st.title("Final Project Data Visualisasi")
-    st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
     # Menampilkan data frame df_customer di Streamlit
     st.subheader("1. Total Customers Berdasarkan Gender")
