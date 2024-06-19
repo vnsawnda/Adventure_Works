@@ -43,7 +43,7 @@ df_customer = pd.DataFrame(data_cust, columns=['Gender', 'TotalCustomers'])
 return df_customer
 
 # Menampilkan judul di halaman web
-st.title(Kasih judulmu")
+st.title("Dashboard Adventure Works")
 
 st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
