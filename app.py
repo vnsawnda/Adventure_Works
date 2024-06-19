@@ -9,19 +9,30 @@ select_box = st.sidebar.selectbox('Pilih data yang ingin ditampilkan:', ['Advent
 
 # Display IMDb Popular Movies
 if select_box == 'IMDb Populer Movies':
-    # Nama file CSV
+    # Baca file CSV menggunakan pandas
     fn1 = 'IMDb_Populer.csv'
-    
-    # Tampilkan judul aplikasi
-    st.title("Scrapping Website IMDb")
-
-    # Membaca file csv ke dalam DataFrame dengan encoding 'latin1'
     df1 = pd.read_csv(fn1, encoding='latin1')
 
+    # Tampilkan judul aplikasi
+    st.title("Scrapping Website IMDb")
     # Menampilkan DataFrame sebagai tabel
     st.dataframe(df1)
 
-    # Display additional information or plots if needed
+    # Visualisasi komparasi rating IMDb teratas
+    st.subheader('Komparasi Rating IMDb untuk Data Teratas')
+    data_top_10 = df1.head(20)
+    data_top_10['Rating'] = data_top_10['Rating'].str.split().str[0].str.replace(',', '').astype(float)
+
+    # Plot scatter plot untuk menampilkan perbandingan rating IMDb untuk setiap judul pada tahun tertentu
+    fig, ax = plt.subplots(figsize=(12, 6))
+    scatter = ax.scatter(data_top_10['Tahun'], data_top_10['Judul'], c=data_top_10['Rating'], cmap='coolwarm', alpha=0.7, edgecolors='w', s=100)
+    ax.set_title('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
+    ax.set_xlabel('Tahun')
+    ax.set_ylabel('Judul')
+    cbar = fig.colorbar(scatter)
+    cbar.set_label('Rating')
+    ax.set_xticks([2015, 2023, 2024])
+    st.pyplot(fig)
 
 # Display Adventure Works Data
 else:
