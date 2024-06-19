@@ -55,15 +55,15 @@ if select_box == 'IMDb Populer Movies':
         return np.round(rating / 2) * 2
 
     if 'Rating' in data_top_20.columns and pd.api.types.is_numeric_dtype(data_top_20['Rating']):
-        data_top_20['Rating Dibulatkan'] = data_top_20['Rating'].apply(round_rating)
+        data_top_20['Rating'] = data_top_20['Rating'].apply(round_rating)
 
     # Plot diagram batang horizontal untuk menampilkan hubungan antara judul film dan rating IMDb yang dibulatkan
     fig, ax = plt.subplots(figsize=(12, 8))  # Ukuran gambar bisa disesuaikan
 
     if 'Rating Dibulatkan' in data_top_20.columns and 'Judul' in data_top_20.columns:
-        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating Dibulatkan'], color='skyblue')
+        bars = ax.barh(data_top_20['Judul'], data_top_20['Rating'], color='skyblue')
 
-        ax.set_xlabel('Rating IMDb Dibulatkan')
+        ax.set_xlabel('Rating Film')
         ax.set_ylabel('Judul Film')
         ax.set_xticks([0, 2, 4, 6, 8])  # Hanya menampilkan angka 0, 2, 4, 6, 8
         ax.invert_yaxis()  # Membalikkan sumbu y agar film dengan rating tertinggi di atas
@@ -79,7 +79,7 @@ if select_box == 'IMDb Populer Movies':
 
         st.pyplot(fig)
     else:
-        st.write("Kolom 'Rating Dibulatkan' atau 'Judul' tidak ditemukan dalam data.")
+        st.write("Kolom 'Rating' atau 'Judul' tidak ditemukan dalam data.")
 
 # Display Adventure Works Data
 else:
