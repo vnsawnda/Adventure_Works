@@ -1,7 +1,7 @@
-import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import streamlit as st
 import pymysql
+import matplotlib.pyplot as plt
 
 # Membuat koneksi ke database MySQL
 conn = pymysql.connect(
@@ -20,9 +20,12 @@ if conn:
     print('Connected to MySQL database')
 
 # Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
-query = "SELECT d.Gender, f.CustomerKey
-FROM dimcustomer d
-JOIN factinternetsales f ON d.CustomerKey = f.CustomerKey"
+query = """ 
+        SELECT dc.Gender, COUNT(fs.CustomerKey) AS TotalCustomers
+        FROM dimcustomer dc
+        LEFT JOIN factinternetsales fs ON dc.CustomerKey = fs.CustomerKey
+        GROUP BY dc.Gender;
+"""
 
 # Eksekusi query
 cursor.execute(query)
@@ -35,27 +38,20 @@ cursor.close()
 conn.close()
 
 # Membaca data dari database
-df_gender = pd.read_sql(gender_query, connection)
-df_customer = pd.read_sql(customer_query, connection)
+df_customer = pd.DataFrame(data_cust, columns=['Gender', 'TotalCustomers'])
 
-# Melakukan join tabel dimcustomer dan factinternetsales berdasarkan CustomerKey
-df_merged = pd.merge(df_customer, df_gender, on='CustomerKey')
+return df_customer
 
-# Mengagregasi data penjualan per gender
-df_aggregated = df_merged.groupby('Gender').agg({
-    'CustomerKey': 'count'
-}).reset_index()
+# Menampilkan judul di halaman web
+st.title(Kasih judulmu")
 
-# Menampilkan hasil agregasi untuk verifikasi
-print(df_aggregated)
+st.markdown("<h1 style='text-align: center; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
-# Mengatur matplotlib inline untuk menampilkan plot di notebook
-%matplotlib inline
-
-# Membuat pie chart untuk visualisasi
+st.dataframe(df_customer)
 plt.figure(figsize=(8, 8))
-plt.pie(df_aggregated['CustomerKey'], labels=df_aggregated['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
-
-# Menambahkan judul
+plt.pie(df_customer['Gender'], df_customer['TotalCustomers'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
 plt.title('Komparasi Total Customers Berdasarkan Gender')
-plt.show()
+plt.xlabel('Gender')
+plt.ylabel('Total Customer')
+plt.grid(True)
+st.pyplot(plt)
