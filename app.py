@@ -172,7 +172,7 @@ else:
 
    # Menampilkan data frame df_customer di Streamlit
     st.title("1. Komparasi Total Customers Berdasarkan Gender")
-    st.markdown(
+    st.write(
     """
     <p style='font-size:12px'>
     Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria.
