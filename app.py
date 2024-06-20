@@ -36,6 +36,14 @@ if select_box == 'IMDb Populer Movies':
 
     # Visualisasi komparasi rating IMDb teratas
     st.subheader('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
+    st.markdown(
+    """
+    Visualisasi di bawah ini memperlihatkan komparasi antara rating IMDb dan tahun rilis dari 20 data teratas.
+    Visualisasi ini berguna untuk melihat tren atau pola peringkat IMDb terhadap tahun rilis film-film teratas.
+    Dengan analisis ini, dapat mengeksplorasi apakah terdapat korelasi antara rating IMDb dan 
+    tahun rilis, serta mengidentifikasi tren populer dalam perfilman dalam beberapa tahun terakhir.
+    """
+)
     data_top_10 = df1.head(20)
     
     # Convert 'Rating' to float
