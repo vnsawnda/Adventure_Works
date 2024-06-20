@@ -171,7 +171,7 @@ else:
     st.markdown("<h1 style='text-align; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
   # Menampilkan data frame df_customer di Streamlit
-    st.title("1. Komparasi Total Customers Berdasarkan Gender")
+    st.subheader("1. Komparasi Total Customers Berdasarkan Gender")
     st.markdown(
     """
     Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria.
@@ -185,7 +185,7 @@ else:
     st.pyplot(fig)
 
     # Menampilkan data frame df_product di Streamlit
-    st.subheader("2. Harga List dan Berat Produk")
+    st.subheader("2. Hubungan Antara Harga List dan Berat Produk")
     st.markdown(
     """
     Visualisasi ini digunakan untuk melihat hubungan antara harga list dan berat produk.
@@ -199,24 +199,32 @@ else:
     ax.plot(df_product['Weight'], color='green', label='Berat')
     ax.set_xlabel('Indeks Produk')
     ax.set_ylabel('Nilai')
-    ax.set_title('Hubungan Antara Harga List dan Berat Produk')
     ax.legend()
     ax.grid()
     st.pyplot(fig)
 
     # Menampilkan data frame df_color di Streamlit
     st.subheader("3. Komposisi Warna Produk")
+    st.markdown(
+    """
+    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi dan mengidentifikasi tren warna yang tersedia.
+    """
+)
     st.dataframe(df_color)
 
     # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
-    ax.set_title('Komposisi Warna Produk')
     ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
     st.pyplot(fig)
 
     # Menampilkan data frame df_sales di Streamlit
     st.subheader("4. Distribusi Jumlah Penjualan")
+     st.markdown(
+    """
+     Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk.
+    """
+)
     st.dataframe(df_sales)
 
     # Membuat histogram untuk visualisasi distribusi jumlah penjualan
@@ -224,5 +232,4 @@ else:
     sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
     ax.set_xlabel('Sales Amount')
     ax.set_ylabel('Frequency')
-    ax.set_title('Distribusi Jumlah Penjualan')
     st.pyplot(fig)
