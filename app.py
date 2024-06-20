@@ -172,7 +172,14 @@ else:
 
    # Menampilkan data frame df_customer di Streamlit
     st.title("1. Komparasi Total Customers Berdasarkan Gender")
-    st.markdown("<h1 style='text-align; color: black; font-size:12px;'>Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria</h1>", unsafe_allow_html=True)
+   st.markdown(
+    """
+    <p style='font-size:12px'>
+    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria.
+    </p>
+    """, 
+    unsafe_allow_html=True
+)
     st.dataframe(df_customer)
     
     # Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
