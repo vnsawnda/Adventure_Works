@@ -170,7 +170,8 @@ else:
     st.title("Final Project Data Visualisasi")
     st.markdown("<h1 style='text-align; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
-    st.title("1. Komparasi Total Customers Berdasarkan Gender")
+   # Menampilkan judul dan deskripsi dengan teks kecil
+st.title("1. Komparasi Total Customers Berdasarkan Gender")
 st.markdown(
     """
     <p style='font-size:12px'>
@@ -179,7 +180,23 @@ st.markdown(
     """, 
     unsafe_allow_html=True
 )
+
+# Menampilkan data frame
 st.dataframe(df_customer)
+
+# Bagian lain dari kode yang mungkin mengandung kesalahan indentasi
+import matplotlib.pyplot as plt
+
+# Contoh bagian kode yang mungkin menyebabkan kesalahan indentasi
+def plot_data():
+    fig, ax = plt.subplots(figsize=(8, 8))
+    # Tambahkan kode plotting di sini
+    return fig
+
+# Memastikan fungsi dipanggil dengan benar
+if __name__ == "__main__":
+    plot = plot_data()
+    st.pyplot(plot)
 
     # Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
     fig, ax = plt.subplots(figsize=(8, 8))
