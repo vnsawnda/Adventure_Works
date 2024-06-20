@@ -220,7 +220,7 @@ else:
 
     # Menampilkan data frame df_sales di Streamlit
     st.subheader("4. Distribusi Jumlah Penjualan")
-     st.markdown(
+    st.markdown(
     """
      Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk.
     """
