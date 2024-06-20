@@ -65,6 +65,15 @@ if select_box == 'IMDb Populer Movies':
 
     # Visualisasi hubungan rating IMDb teratas dengan rating dibulatkan
     st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+    st.markdown(
+    """
+    Visualisasi di bawah ini menampilkan hubungan antara judul film dan rating IMDb dari 20 data teratas.
+    Visualisasi ini membantu untuk memahami sebaran peringkat IMDb di antara judul-judul film terpopuler.
+    Dengan melihat visualisasi ini, dapat mengidentifikasi film-film dengan rating tertinggi dan memahami
+    variasi peringkat di antara judul-judul tersebut. Informasi ini penting untuk evaluasi kualitas film
+    serta untuk mengetahui preferensi dan tren penonton terhadap judul-judul film saat ini.
+    """
+)
     data_top_20 = df1.head(20)
     
     # Convert 'Rating' to float
@@ -80,6 +89,15 @@ if select_box == 'IMDb Populer Movies':
 
     # Visualisasi komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
     st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
+    st.markdown(
+    """
+    Visualisasi di bawah ini menunjukkan komposisi jumlah film berdasarkan rentang tahun rilis
+    dari 20 data teratas. Visualisasi ini membantu untuk memahami distribusi film-film terpopuler
+    berdasarkan tahun rilisnya. Dengan melihat data ini, dapat mengidentifikasi apakah
+    terdapat preferensi terhadap film-film baru atau film lama, serta memahami
+    keberagaman dan tren dalam rentang tahun rilis film-film populer saat ini.
+    """
+)
     data_top_20 = df1.head(20)
     
     # Pastikan kolom 'Tahun' adalah tipe data integer
@@ -99,6 +117,15 @@ if select_box == 'IMDb Populer Movies':
 
  # Visualisasi distribusi judul film dengan tahun film menggunakan bar plot
     st.subheader('Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
+    st.markdown(
+    """
+    Visualisasi di bawah ini menampilkan distribusi judul film berdasarkan tahun rilis untuk
+    20 data teratas. Visualisasi ini membantu untuk melihat sebaran judul-judul film populer
+    berdasarkan rentang tahun rilisnya. Dengan mempertimbangkan visualisasi ini, dapat mengidentifikasi
+    apakah ada tren tertentu dalam jumlah film yang dirilis dalam beberapa tahun terakhir,
+    serta memahami preferensi atau fokus industri perfilman pada periode waktu tertentu.
+    """
+)
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.countplot(data=data_top_20, x='Tahun', palette='viridis')
     ax.set_xlabel('Tahun Rilis')
