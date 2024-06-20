@@ -175,7 +175,9 @@ else:
    st.markdown(
     """
     <p style='font-size:12px'>
-    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria.
+    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, 
+    sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan 
+    berapa banyak pelanggan pria.
     </p>
     """, 
     unsafe_allow_html=True
