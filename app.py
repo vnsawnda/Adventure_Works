@@ -182,6 +182,11 @@ else:
 
     # Menampilkan data frame df_product di Streamlit
     st.subheader("2. Harga List dan Berat Produk")
+    st.markdown(
+    """
+    Visualisasi ini digunakan untuk melihat hubungan antara harga list dan berat produk.
+    """
+)
     st.dataframe(df_product)
 
     # Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
