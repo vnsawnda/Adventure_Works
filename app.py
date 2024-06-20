@@ -188,7 +188,7 @@ else:
     st.subheader("2. Hubungan Antara Harga List dan Berat Produk")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk melihat hubungan antara harga list dan berat produk.
+    Visualisasi ini digunakan untuk melihat hubungan antara harga list dan berat produk serta memahami bagaimana variasi berat mempengaruhi harga, membantu menentukan harga optimal berdasarkan berat, dan memberikan wawasan penting bagi strategi penetapan harga. 
     """
 )
     st.dataframe(df_product)
@@ -207,7 +207,7 @@ else:
     st.subheader("3. Komposisi Warna Produk")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi dan mengidentifikasi tren warna yang tersedia.
+    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi, mendapatkan wawasan lebih dalam tentang preferensi warna dalam penjualan produk, dan mengidentifikasi tren warna yang tersedia.
     """
 )
     st.dataframe(df_color)
@@ -222,7 +222,7 @@ else:
     st.subheader("4. Distribusi Jumlah Penjualan")
     st.markdown(
     """
-     Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk.
+     Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk dan untuk mengoptimalkan strategi pemasaran dan pengelolaan persediaan, sehingga dapat meningkatkan efisiensi operasional danprofitabilitas perusahaan.
     """
 )
     st.dataframe(df_sales)
