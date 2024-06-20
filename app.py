@@ -26,7 +26,7 @@ if select_box == 'IMDb Populer Movies':
     # Tampilkan judul aplikasi
     st.title("Final Project Data Visualisasi")
     st.markdown("<h1 style='text-align; color: black;'>Scrapping Website IMDb</h1>", unsafe_allow_html=True)
-     st.markdown(
+    st.markdown(
     """
      Tabel data berikut merupakan hasil dari scrapping website IMDb Charts : Most Popular Movies. Data ini mencakup judul film, durasi film, rating IMDb, dan tahun rilis untuk film-film populer saat ini menurut IMDb.
     """
