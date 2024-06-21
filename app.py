@@ -123,9 +123,6 @@ if select_box == 'IMDb Populer Movies':
 conn = st.connection("mydb", type="sql", autocommit=True)
 # st.write(st.secrets["connections.mydb"]["username"])
 
-    # Membuat cursor
-    cursor = conn.cursor()
-
     # Cek koneksi berhasil
     if conn:
         st.sidebar.success('Connected to MySQL database')
