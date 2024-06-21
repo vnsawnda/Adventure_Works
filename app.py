@@ -123,10 +123,6 @@ if select_box == 'IMDb Populer Movies':
 conn = st.connection("mydb", type="sql", autocommit=True)
 # st.write(st.secrets["connections.mydb"]["username"])
 
-    # Cek koneksi berhasil
-    if conn:
-        st.sidebar.success('Connected to MySQL database')
-
     # Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
     query1 = """ 
             SELECT dc.Gender, COUNT(fs.CustomerKey) AS TotalCustomers
