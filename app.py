@@ -35,13 +35,10 @@ if select_box == 'IMDb Populer Movies':
     st.dataframe(df1)
 
     # Visualisasi komparasi rating IMDb teratas
-    st.subheader('Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
+    st.subheader('1. Komparasi berdasarkan Rating IMDb dan Tahun 20 Data Teratas')
     st.markdown(
     """
-    Visualisasi di bawah ini memperlihatkan komparasi antara rating IMDb dan tahun rilis dari 20 data teratas.
-    Visualisasi ini berguna untuk melihat tren atau pola peringkat IMDb terhadap tahun rilis film-film teratas.
-    Dengan analisis ini, dapat mengeksplorasi apakah terdapat korelasi antara rating IMDb dan 
-    tahun rilis, serta mengidentifikasi tren populer dalam perfilman dalam beberapa tahun terakhir.
+    Visualisasi scatter plot ini menampilkan film-film berdasarkan tahun rilis dari 2015 hingga 2024 dengan judul pada sumbu Y dan tahun pada sumbu X, menunjukkan rating masing-masing film melalui warna titik (biru untuk rating lebih rendah hingga merah untuk rating lebih tinggi), dengan mayoritas film berfokus pada tahun 2023 dan 2024, mengindikasikan variasi rating yang signifikan dari 5.5 hingga 8.5.
     """
 )
     data_top_10 = df1.head(20)
@@ -64,14 +61,10 @@ if select_box == 'IMDb Populer Movies':
         st.write("Error: 'Rating' column could not be converted to numeric.")
 
     # Visualisasi hubungan rating IMDb teratas dengan rating dibulatkan
-    st.subheader('Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
+    st.subheader('2. Hubungan Antar Judul Film dan Rating IMDb 20 Data Teratas')
     st.markdown(
     """
-    Visualisasi di bawah ini menampilkan hubungan antara judul film dan rating IMDb dari 20 data teratas.
-    Visualisasi ini membantu untuk memahami sebaran peringkat IMDb di antara judul-judul film terpopuler.
-    Dengan melihat visualisasi ini, dapat mengidentifikasi film-film dengan rating tertinggi dan memahami
-    variasi peringkat di antara judul-judul tersebut. Informasi ini penting untuk evaluasi kualitas film
-    serta untuk mengetahui preferensi dan tren penonton terhadap judul-judul film saat ini.
+    Visualisasi di bawah ini menampilkan hubungan antara judul film dan rating IMDb dari 20 data teratas. Diagram batang ini menunjukkan rating IMDb untuk berbagai film, dengan rating yang bervariasi dari sekitar 5 hingga 8.5, di mana sebagian besar film berada di kisaran rating menengah sekitar 6 hingga 7, dan film "Mad Max: Fury Road" memiliki rating tertinggi mendekati 8.5, menandakan kualitas yang sangat baik dibandingkan dengan film lainnya.
     """
 )
     data_top_20 = df1.head(20)
@@ -88,14 +81,10 @@ if select_box == 'IMDb Populer Movies':
     st.pyplot(fig)
 
     # Visualisasi komposisi jumlah film berdasarkan rentang tahun rilis untuk 20 data teratas
-    st.subheader('Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
+    st.subheader('3. Komposisi Jumlah Film Berdasarkan Rentang Tahun Rilis untuk 20 Data Teratas')
     st.markdown(
     """
-    Visualisasi di bawah ini menunjukkan komposisi jumlah film berdasarkan rentang tahun rilis
-    dari 20 data teratas. Visualisasi ini membantu untuk memahami distribusi film-film terpopuler
-    berdasarkan tahun rilisnya. Dengan melihat data ini, dapat mengidentifikasi apakah
-    terdapat preferensi terhadap film-film baru atau film lama, serta memahami
-    keberagaman dan tren dalam rentang tahun rilis film-film populer saat ini.
+    Visualisasi ini menunjukkan bahwa jumlah film yang dirilis mengalami peningkatan yang signifikan, terutama dalam dekade 2020 hingga 2030, dengan jumlah film yang jauh lebih banyak dibandingkan dengan periode sebelumnya, di mana hampir tidak ada film yang dirilis antara tahun 1990 hingga 2010 dan hanya sedikit peningkatan pada periode 2010 hingga 2020.
     """
 )
     data_top_20 = df1.head(20)
@@ -116,14 +105,10 @@ if select_box == 'IMDb Populer Movies':
     st.pyplot(fig)
 
  # Visualisasi distribusi judul film dengan tahun film menggunakan bar plot
-    st.subheader('Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
+    st.subheader('4. Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
     st.markdown(
     """
-    Visualisasi di bawah ini menampilkan distribusi judul film berdasarkan tahun rilis untuk
-    20 data teratas. Visualisasi ini membantu untuk melihat sebaran judul-judul film populer
-    berdasarkan rentang tahun rilisnya. Dengan mempertimbangkan visualisasi ini, dapat mengidentifikasi
-    apakah ada tren tertentu dalam jumlah film yang dirilis dalam beberapa tahun terakhir,
-    serta memahami preferensi atau fokus industri perfilman pada periode waktu tertentu.
+    Grafik batang ini menunjukkan bahwa jumlah judul film yang dirilis mengalami peningkatan bertahap dari sekitar 2 judul pada tahun 2015 menjadi sekitar 3 judul pada tahun 2023, dan kemudian mengalami lonjakan yang sangat signifikan pada tahun 2024 dengan jumlah judul film yang dirilis mencapai sekitar 17 judul, menggambarkan peningkatan yang luar biasa dalam produksi film pada tahun tersebut dibandingkan dengan tahun-tahun sebelumnya.
     """
 )
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -214,7 +199,9 @@ else:
     st.subheader("1. Komparasi Total Customers Berdasarkan Gender")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan kita untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. Tabel ini menampilkan total jumlah pelanggan berdasarkan jenis kelamin. Dari visualisasi tersebut terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. Jumlah pelanggan laki-laki adalah 30.381, sedangkan jumlah pelanggan perempuan adalah 30.017. Terlihat bahwa perbedaannya tidak terlalu signifikan, dengan selisih hanya 364 pelanggan lebih banyak pada pelanggan laki-laki dibandingkan dengan pelanggan perempuan.
+    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. 
+    Tabel dibawah ini menampilkan total jumlah pelanggan berdasarkan jenis kelamin. Dari visualisasi yang telah dibuat terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. 
+    Jumlah pelanggan laki-laki adalah 30.381, sedangkan jumlah pelanggan perempuan adalah 30.017. Terlihat bahwa perbedaannya tidak terlalu signifikan, dengan selisih hanya 364 pelanggan lebih banyak pada pelanggan laki-laki dibandingkan dengan pelanggan perempuan.
     """
 )
     st.dataframe(df_customer)
@@ -228,7 +215,9 @@ else:
     st.subheader("2. Hubungan Antara Harga List dan Berat Produk")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk melihat hubungan antara harga list dan berat produk serta memahami bagaimana variasi berat mempengaruhi harga, membantu menentukan harga optimal berdasarkan berat, dan memberikan wawasan penting bagi strategi penetapan harga. 
+    Visualisasi ini menampilkan perbandingan antara harga list dan berat produk berdasarkan indeks produk. 
+    Harga list (garis biru) bervariasi signifikan dengan beberapa kenaikan tajam hingga 3500 dan penurunan drastis di beberapa titik. 
+    Sebaliknya, berat produk (garis hijau) tetap hampir konstan di seluruh rentang indeks produk, menunjukkan variabilitas yang sangat rendah dibandingkan dengan harga list.
     """
 )
     st.dataframe(df_product)
@@ -247,7 +236,8 @@ else:
     st.subheader("3. Komposisi Warna Produk")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi, mendapatkan wawasan lebih dalam tentang preferensi warna dalam penjualan produk, dan mengidentifikasi tren warna yang tersedia.
+    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi, mendapatkan wawasan lebih dalam tentang preferensi warna dalam penjualan produk, dan mengidentifikasi tren warna yang tersedia. 
+    Diagram pai ini menunjukkan bahwa warna Black mendominasi produk dengan 29.1%, diikuti oleh Yellow (17.1%), Red (14.6%), Silver (12.7%), NA (11.4%), Blue (10.8%), Multi (3.2%), dan White (1.3%), yang merupakan warna paling jarang ditemukan.
     """
 )
     st.dataframe(df_color)
@@ -263,6 +253,7 @@ else:
     st.markdown(
     """
      Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk dan untuk mengoptimalkan strategi pemasaran dan pengelolaan persediaan, sehingga dapat meningkatkan efisiensi operasional danprofitabilitas perusahaan.
+     Histogram ini menunjukkan distribusi jumlah penjualan yang didominasi oleh transaksi dengan nilai penjualan 0, dengan sebagian kecil transaksi tersebar secara sporadis di nilai penjualan yang lebih tinggi hingga sekitar 3500.
     """
 )
     st.dataframe(df_sales)
