@@ -117,16 +117,11 @@ if select_box == 'IMDb Populer Movies':
     ax.set_ylabel('Jumlah Judul Film')
     st.pyplot(fig)
 
-# Display Adventure Works Data
-else:
-    # Membuat koneksi ke database MySQL
-    conn = pymysql.connect(
-        host="kubela.id",
-        port=3306,
-        user="davis2024irwan",
-        password="wh451n9m@ch1n3",
-        database="aw"
-    )
+# Initialize connection.
+# conn = st.connection('mysql', type='sql', username=st.secrets["DB_USER"], password=st.secrets["DB_PASSWORD"])
+# conn = st.connection(**st.secrets.db_credentials)
+conn = st.connection("mydb", type="sql", autocommit=True)
+# st.write(st.secrets["connections.mydb"]["username"])
 
     # Membuat cursor
     cursor = conn.cursor()
