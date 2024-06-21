@@ -199,8 +199,7 @@ else:
     st.subheader("1. Komparasi Total Customers Berdasarkan Gender")
     st.markdown(
     """
-    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. 
-    Tabel dibawah ini menampilkan total jumlah pelanggan berdasarkan jenis kelamin. Dari visualisasi yang telah dibuat terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. 
+    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. Dari visualisasi yang telah dibuat terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. 
     Jumlah pelanggan laki-laki adalah 30.381, sedangkan jumlah pelanggan perempuan adalah 30.017. Terlihat bahwa perbedaannya tidak terlalu signifikan, dengan selisih hanya 364 pelanggan lebih banyak pada pelanggan laki-laki dibandingkan dengan pelanggan perempuan.
     """
 )
