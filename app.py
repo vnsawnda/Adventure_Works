@@ -30,7 +30,7 @@ if select_box == 'IMDb Populer Movies':
     """
      Tabel data berikut merupakan hasil dari scrapping website IMDb Charts : Most Popular Movies. Data ini mencakup judul film, durasi film, rating IMDb, dan tahun rilis untuk film-film populer saat ini menurut IMDb.
     """
-)
+    )
     # Menampilkan DataFrame sebagai tabel
     st.dataframe(df1)
 
@@ -40,7 +40,7 @@ if select_box == 'IMDb Populer Movies':
     """
     Visualisasi scatter plot ini menampilkan film-film berdasarkan tahun rilis dari 2015 hingga 2024 dengan judul pada sumbu Y dan tahun pada sumbu X, menunjukkan rating masing-masing film melalui warna titik (biru untuk rating lebih rendah hingga merah untuk rating lebih tinggi), dengan mayoritas film berfokus pada tahun 2023 dan 2024, mengindikasikan variasi rating yang signifikan dari 5.5 hingga 8.5.
     """
-)
+    )
     data_top_10 = df1.head(20)
     
     # Convert 'Rating' to float
@@ -66,7 +66,7 @@ if select_box == 'IMDb Populer Movies':
     """
     Visualisasi di bawah ini menampilkan hubungan antara judul film dan rating IMDb dari 20 data teratas. Diagram batang ini menunjukkan rating IMDb untuk berbagai film, dengan rating yang bervariasi dari sekitar 5 hingga 8.5, di mana sebagian besar film berada di kisaran rating menengah sekitar 6 hingga 7, dan film "Mad Max: Fury Road" memiliki rating tertinggi mendekati 8.5, menandakan kualitas yang sangat baik dibandingkan dengan film lainnya.
     """
-)
+    )
     data_top_20 = df1.head(20)
     
     # Convert 'Rating' to float
@@ -86,7 +86,7 @@ if select_box == 'IMDb Populer Movies':
     """
     Visualisasi ini menunjukkan bahwa jumlah film yang dirilis mengalami peningkatan yang signifikan, terutama dalam dekade 2020 hingga 2030, dengan jumlah film yang jauh lebih banyak dibandingkan dengan periode sebelumnya, di mana hampir tidak ada film yang dirilis antara tahun 1990 hingga 2010 dan hanya sedikit peningkatan pada periode 2010 hingga 2020.
     """
-)
+    )
     data_top_20 = df1.head(20)
     
     # Pastikan kolom 'Tahun' adalah tipe data integer
@@ -110,18 +110,23 @@ if select_box == 'IMDb Populer Movies':
     """
     Grafik batang ini menunjukkan bahwa jumlah judul film yang dirilis mengalami peningkatan bertahap dari sekitar 2 judul pada tahun 2015 menjadi sekitar 3 judul pada tahun 2023, dan kemudian mengalami lonjakan yang sangat signifikan pada tahun 2024 dengan jumlah judul film yang dirilis mencapai sekitar 17 judul, menggambarkan peningkatan yang luar biasa dalam produksi film pada tahun tersebut dibandingkan dengan tahun-tahun sebelumnya.
     """
-)
+    )
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.countplot(data=data_top_20, x='Tahun', palette='viridis')
     ax.set_xlabel('Tahun Rilis')
     ax.set_ylabel('Jumlah Judul Film')
     st.pyplot(fig)
 
-# Initialize connection.
-# conn = st.connection('mysql', type='sql', username=st.secrets["DB_USER"], password=st.secrets["DB_PASSWORD"])
-# conn = st.connection(**st.secrets.db_credentials)
-conn = st.connection("mydb", type="sql", autocommit=True)
-# st.write(st.secrets["connections.mydb"]["username"])
+# Connect to the database
+conn = pymysql.connect(
+    host=st.secrets["DB_HOST"],
+    user=st.secrets["DB_USER"],
+    password=st.secrets["DB_PASSWORD"],
+    database=st.secrets["DB_NAME"]
+)
+
+# Create a cursor object
+cursor = conn.cursor()
 
 # Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
 query1 = """ 
