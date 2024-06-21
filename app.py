@@ -104,7 +104,7 @@ if select_box == 'IMDb Populer Movies':
     ax.grid(True)
     st.pyplot(fig)
 
- # Visualisasi distribusi judul film dengan tahun film menggunakan bar plot
+    # Visualisasi distribusi judul film dengan tahun film menggunakan bar plot
     st.subheader('4. Distribusi Judul Film dengan Tahun Rilis untuk 20 Data Teratas')
     st.markdown(
     """
@@ -123,131 +123,131 @@ if select_box == 'IMDb Populer Movies':
 conn = st.connection("mydb", type="sql", autocommit=True)
 # st.write(st.secrets["connections.mydb"]["username"])
 
-    # Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
-    query1 = """ 
-            SELECT dc.Gender, COUNT(fs.CustomerKey) AS TotalCustomers
-            FROM dimcustomer dc
-            LEFT JOIN factinternetsales fs ON dc.CustomerKey = fs.CustomerKey
-            GROUP BY dc.Gender;
-    """
+# Query untuk mengambil data dari tabel dimcustomer dan factinternetsales
+query1 = """ 
+        SELECT dc.Gender, COUNT(fs.CustomerKey) AS TotalCustomers
+        FROM dimcustomer dc
+        LEFT JOIN factinternetsales fs ON dc.CustomerKey = fs.CustomerKey
+        GROUP BY dc.Gender;
+"""
 
-    # Eksekusi query
-    cursor.execute(query1)
+# Eksekusi query
+cursor.execute(query1)
 
-    # Mendapatkan hasil query sebagai tuple
-    data1 = cursor.fetchall()
+# Mendapatkan hasil query sebagai tuple
+data1 = cursor.fetchall()
 
-    # Membaca data dari database
-    df_customer = pd.DataFrame(data1, columns=['Gender', 'TotalCustomers'])
+# Membaca data dari database
+df_customer = pd.DataFrame(data1, columns=['Gender', 'TotalCustomers'])
 
-    # Query untuk mengambil data harga list (ListPrice) dan berat (Weight) dari tabel dimproduct
-    query2 = """
-        SELECT 
-            ListPrice,
-            Weight
-        FROM 
-            dimproduct
-    """
+# Query untuk mengambil data harga list (ListPrice) dan berat (Weight) dari tabel dimproduct
+query2 = """
+    SELECT 
+        ListPrice,
+        Weight
+    FROM 
+        dimproduct
+"""
 
-    # Membaca data dari database menjadi dataframe menggunakan pandas
-    df_product = pd.read_sql(query2, conn)
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df_product = pd.read_sql(query2, conn)
 
-    # Query untuk mengambil data warna produk dari tabel dimproduct
-    query3 = """
-        SELECT 
-            Color,
-            COUNT(*) AS count
-        FROM 
-            dimproduct
-        GROUP BY 
-            Color
-    """
+# Query untuk mengambil data warna produk dari tabel dimproduct
+query3 = """
+    SELECT 
+        Color,
+        COUNT(*) AS count
+    FROM 
+        dimproduct
+    GROUP BY 
+        Color
+"""
 
-    # Membaca data dari database menjadi dataframe menggunakan pandas
-    df_color = pd.read_sql(query3, conn)
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df_color = pd.read_sql(query3, conn)
 
-    # Query untuk mengambil data total penjualan dari tabel factinternetsales
-    query4 = """
-        SELECT SalesAmount
-        FROM factinternetsales
-    """
+# Query untuk mengambil data total penjualan dari tabel factinternetsales
+query4 = """
+    SELECT SalesAmount
+    FROM factinternetsales
+"""
 
-    # Membaca data dari database menjadi dataframe menggunakan pandas
-    df_sales = pd.read_sql(query4, conn)
+# Membaca data dari database menjadi dataframe menggunakan pandas
+df_sales = pd.read_sql(query4, conn)
 
-    # Menutup cursor dan koneksi database
-    cursor.close()
-    conn.close()
+# Menutup cursor dan koneksi database
+cursor.close()
+conn.close()
 
-    # Menampilkan judul di halaman web
-    st.title("Final Project Data Visualisasi")
-    st.markdown("<h1 style='text-align; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
+# Menampilkan judul di halaman web
+st.title("Final Project Data Visualisasi")
+st.markdown("<h1 style='text-align; color: black;'>Dashboard Adventure Works</h1>", unsafe_allow_html=True)
 
-  # Menampilkan data frame df_customer di Streamlit
-    st.subheader("1. Komparasi Total Customers Berdasarkan Gender")
-    st.markdown(
-    """
-    Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. Dari visualisasi yang telah dibuat terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. 
-    Jumlah pelanggan laki-laki adalah 30.381, sedangkan jumlah pelanggan perempuan adalah 30.017. Terlihat bahwa perbedaannya tidak terlalu signifikan, dengan selisih hanya 364 pelanggan lebih banyak pada pelanggan laki-laki dibandingkan dengan pelanggan perempuan.
-    """
+# Menampilkan data frame df_customer di Streamlit
+st.subheader("1. Komparasi Total Customers Berdasarkan Gender")
+st.markdown(
+"""
+Visualisasi ini digunakan untuk membandingkan jumlah pelanggan berdasarkan gender, sehingga memudahkan untuk mengetahui berapa banyak pelanggan wanita dan berapa banyak pelanggan pria. Dari visualisasi yang telah dibuat terlihat bahwa jumlah pelanggan laki-laki sedikit lebih banyak dibandingkan dengan pelanggan perempuan. 
+Jumlah pelanggan laki-laki adalah 30.381, sedangkan jumlah pelanggan perempuan adalah 30.017. Terlihat bahwa perbedaannya tidak terlalu signifikan, dengan selisih hanya 364 pelanggan lebih banyak pada pelanggan laki-laki dibandingkan dengan pelanggan perempuan.
+"""
 )
-    st.dataframe(df_customer)
-    
-    # Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
-    st.pyplot(fig)
+st.dataframe(df_customer)
 
-    # Menampilkan data frame df_product di Streamlit
-    st.subheader("2. Hubungan Antara Harga List dan Berat Produk")
-    st.markdown(
-    """
-    Visualisasi ini menampilkan perbandingan antara harga list dan berat produk berdasarkan indeks produk. 
-    Harga list (garis biru) bervariasi signifikan dengan beberapa kenaikan tajam hingga 3500 dan penurunan drastis di beberapa titik. 
-    Sebaliknya, berat produk (garis hijau) tetap hampir konstan di seluruh rentang indeks produk, menunjukkan variabilitas yang sangat rendah dibandingkan dengan harga list.
-    """
+# Membuat pie chart menggunakan Matplotlib untuk total customers berdasarkan gender
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.pie(df_customer['TotalCustomers'], labels=df_customer['Gender'], autopct='%1.1f%%', colors=['blue', 'pink'], startangle=140)
+st.pyplot(fig)
+
+# Menampilkan data frame df_product di Streamlit
+st.subheader("2. Hubungan Antara Harga List dan Berat Produk")
+st.markdown(
+"""
+Visualisasi ini menampilkan perbandingan antara harga list dan berat produk berdasarkan indeks produk. 
+Harga list (garis biru) bervariasi signifikan dengan beberapa kenaikan tajam hingga 3500 dan penurunan drastis di beberapa titik. 
+Sebaliknya, berat produk (garis hijau) tetap hampir konstan di seluruh rentang indeks produk, menunjukkan variabilitas yang sangat rendah dibandingkan dengan harga list.
+"""
 )
-    st.dataframe(df_product)
+st.dataframe(df_product)
 
-    # Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df_product['ListPrice'], color='blue', label='Harga List')
-    ax.plot(df_product['Weight'], color='green', label='Berat')
-    ax.set_xlabel('Indeks Produk')
-    ax.set_ylabel('Nilai')
-    ax.legend()
-    ax.grid()
-    st.pyplot(fig)
+# Membuat line plot untuk memvisualisasikan hubungan antara harga list dan berat produk
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(df_product['ListPrice'], color='blue', label='Harga List')
+ax.plot(df_product['Weight'], color='green', label='Berat')
+ax.set_xlabel('Indeks Produk')
+ax.set_ylabel('Nilai')
+ax.legend()
+ax.grid()
+st.pyplot(fig)
 
-    # Menampilkan data frame df_color di Streamlit
-    st.subheader("3. Komposisi Warna Produk")
-    st.markdown(
-    """
-    Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi, mendapatkan wawasan lebih dalam tentang preferensi warna dalam penjualan produk, dan mengidentifikasi tren warna yang tersedia. 
-    Diagram pai ini menunjukkan bahwa warna Black mendominasi produk dengan 29.1%, diikuti oleh Yellow (17.1%), Red (14.6%), Silver (12.7%), NA (11.4%), Blue (10.8%), Multi (3.2%), dan White (1.3%), yang merupakan warna paling jarang ditemukan.
-    """
+# Menampilkan data frame df_color di Streamlit
+st.subheader("3. Komposisi Warna Produk")
+st.markdown(
+"""
+Visualisasi ini digunakan untuk melihat berbagai warna produk terdistribusi, mendapatkan wawasan lebih dalam tentang preferensi warna dalam penjualan produk, dan mengidentifikasi tren warna yang tersedia. 
+Diagram pai ini menunjukkan bahwa warna Black mendominasi produk dengan 29.1%, diikuti oleh Yellow (17.1%), Red (14.6%), Silver (12.7%), NA (11.4%), Blue (10.8%), Multi (3.2%), dan White (1.3%), yang merupakan warna paling jarang ditemukan.
+"""
 )
-    st.dataframe(df_color)
+st.dataframe(df_color)
 
-    # Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
-    fig, ax = plt.subplots(figsize=(8, 8))
-    ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
-    ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
-    st.pyplot(fig)
+# Membuat pie chart menggunakan Matplotlib untuk komposisi warna produk
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.pie(df_color['count'], labels=df_color['Color'], autopct='%1.1f%%', startangle=140)
+ax.axis('equal')  # Memastikan lingkaran berbentuk lingkaran
+st.pyplot(fig)
 
-    # Menampilkan data frame df_sales di Streamlit
-    st.subheader("4. Distribusi Jumlah Penjualan")
-    st.markdown(
-    """
-     Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk dan untuk mengoptimalkan strategi pemasaran dan pengelolaan persediaan, sehingga dapat meningkatkan efisiensi operasional danprofitabilitas perusahaan.
-     Histogram ini menunjukkan distribusi jumlah penjualan yang didominasi oleh transaksi dengan nilai penjualan 0, dengan sebagian kecil transaksi tersebar secara sporadis di nilai penjualan yang lebih tinggi hingga sekitar 3500.
-    """
+# Menampilkan data frame df_sales di Streamlit
+st.subheader("4. Distribusi Jumlah Penjualan")
+st.markdown(
+"""
+Visualisasi ini digunakan untuk melihat bagaimana jumlah penjualan terdistribusi di antara berbagai produk dan untuk mengoptimalkan strategi pemasaran dan pengelolaan persediaan, sehingga dapat meningkatkan efisiensi operasional dan profitabilitas perusahaan.
+Histogram ini menunjukkan distribusi jumlah penjualan yang didominasi oleh transaksi dengan nilai penjualan 0, dengan sebagian kecil transaksi tersebar secara sporadis di nilai penjualan yang lebih tinggi hingga sekitar 3500.
+"""
 )
-    st.dataframe(df_sales)
+st.dataframe(df_sales)
 
-    # Membuat histogram untuk visualisasi distribusi jumlah penjualan
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
-    ax.set_xlabel('Sales Amount')
-    ax.set_ylabel('Frequency')
-    st.pyplot(fig)
+# Membuat histogram untuk visualisasi distribusi jumlah penjualan
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.histplot(df_sales['SalesAmount'], kde=False, color='skyblue', bins=30, ax=ax)
+ax.set_xlabel('Sales Amount')
+ax.set_ylabel('Frequency')
+st.pyplot(fig)
